@@ -1,0 +1,1 @@
+flutter build apk --pub --release --obfuscate --split-debug-info=build --build-name "v$1" --build-number "$(echo $1 | tr -d .)"
