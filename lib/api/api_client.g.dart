@@ -41,29 +41,6 @@ class _EnterpriseApiClient implements EnterpriseApiClient {
   }
 
   @override
-  Future<HttpResponse<dynamic>> getEnterprisesWithFilter(type, name) async {
-    ArgumentError.checkNotNull(type, 'type');
-    ArgumentError.checkNotNull(name, 'name');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'enterprise_types': type,
-      r'name': name
-    };
-    final _data = <String, dynamic>{};
-    final _result = await _dio.request('/enterprises',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{},
-            extra: _extra,
-            baseUrl: baseUrl),
-        data: _data);
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
-  }
-
-  @override
   Future<HttpResponse<EnterpriseInfo>> getEnterpriseById(
       {id, uid, client, accessToken}) async {
     const _extra = <String, dynamic>{};
@@ -83,6 +60,33 @@ class _EnterpriseApiClient implements EnterpriseApiClient {
             baseUrl: baseUrl),
         data: _data);
     final value = EnterpriseInfo.fromJson(_result.data);
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> getEnterprisesWithFilter(
+      {type, name, uid, client, accessToken}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'enterprise_types': type,
+      r'name': name
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request('/enterprises',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'uid': uid,
+              r'client': client,
+              r'access-token': accessToken
+            },
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
