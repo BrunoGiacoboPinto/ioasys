@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ioasys/models/enterprise_info.dart';
 import 'package:ioasys/models/enterprise_list.dart';
-import 'package:ioasys/models/sign_up_response.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/http.dart';
 
