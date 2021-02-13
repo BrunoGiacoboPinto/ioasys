@@ -26,8 +26,8 @@ jobs:
             @semantic-release/exec
             @semantic-release/git
         env:
-          GPA_KEY_PASSWORD: ${{ secrets.GPA_KEY_PASSWORD }}
-          GPA_KEY_ALIAS: ${{ secrets.GPA_KEY_ALIAS }}
+          GPA_KEY_PASSWORD: ${{ secrets.IOASYS_KEY_SECRET }}
+          GPA_KEY_ALIAS: ${{ secrets.IOASYS_KEY_ALIAS }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy APK to Firebase App Distribution
         uses: w9jds/firebase-action@master
