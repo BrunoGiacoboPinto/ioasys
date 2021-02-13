@@ -10,11 +10,6 @@ part 'api_client.g.dart';
 abstract class EnterpriseApiClient {
   factory EnterpriseApiClient(Dio dio) = _EnterpriseApiClient;
 
-  /* Missing fromjson
-  @POST('/users/auth/sign_in')
-  Future<HttpResponse<UserSignUpInfo>> signUserIn(
-      @Body() Map<String, dynamic> json); */
-
   @GET('/enterprises')
   Future<HttpResponse<EnterpriseInfoList>> getEnterprises(
       {@Header('uid') String uid,

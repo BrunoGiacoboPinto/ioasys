@@ -13,3 +13,9 @@ abstract class AuthApiClient {
   Future<HttpResponse<UserSignUpInfo>> signUserIn(
       @Body() Map<String, dynamic> json);
 }
+
+final authApi = AuthApiClient(Dio(BaseOptions(
+  headers: {'Content-Type': 'application/json'},
+  connectTimeout: 5000,
+  receiveTimeout: 5000,
+)));
