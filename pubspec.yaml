@@ -18,6 +18,8 @@ dependencies:
 
   built_value: ^7.1.0
 
+  retrofit: any
+
   base:
     path: base
 
@@ -28,6 +30,10 @@ dev_dependencies:
   build_runner: ^1.5.0
 
   built_value_generator:
+
+  retrofit_generator: any
+
+  dio: ^3.0.10
 
 flutter:
 

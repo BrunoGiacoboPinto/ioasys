@@ -40,7 +40,7 @@ abstract class EnterpriseInfo
   String get twitter;
 
   @nullable
-  int get share_price;
+  double get share_price;
 
   @nullable
   String get country;
@@ -60,21 +60,43 @@ abstract class EnterpriseInfo
   @nullable
   int get id;
 
-  factory EnterpriseInfo.from(Map<String, dynamic> json) =>
-      EnterpriseInfo((b) => b
-        ..enterprise_type = EnterpriseType.from(json['enterprise_type'])
-        ..email_enterprise = json['email_enterprise']
-        ..enterprise_name = json['enterprise_name']
-        ..description = json['description']
-        ..own_enterprise = json['own_enterprise']
-        ..facebook = json['facebook']
-        ..linkedin = json['linkedin']
-        ..twitter = json['twitter']
-        ..share_price = json['share_price']
-        ..country = json['country']
-        ..city = json['city']
-        ..photo = json['photo']
-        ..phone = json['phone']
-        ..value = json['value']
-        ..id = json['id']);
+  factory EnterpriseInfo.fromJson(Map<String, dynamic> json) {
+    final data = json['enterprise'];
+
+    return EnterpriseInfo((b) => b
+      ..enterprise_type = EnterpriseType.from(data['enterprise_type'])
+      ..email_enterprise = data['email_enterprise']
+      ..enterprise_name = data['enterprise_name']
+      ..description = data['description']
+      ..own_enterprise = data['own_enterprise']
+      ..facebook = data['facebook']
+      ..linkedin = data['linkedin']
+      ..twitter = data['twitter']
+      ..share_price = data['share_price']
+      ..country = data['country']
+      ..city = data['city']
+      ..photo = data['photo']
+      ..phone = data['phone']
+      ..value = data['value']
+      ..id = data['id']);
+  }
+
+  factory EnterpriseInfo.of(dynamic data) {
+    return EnterpriseInfo((b) => b
+      ..enterprise_type = EnterpriseType.from(data['enterprise_type'])
+      ..email_enterprise = data['email_enterprise']
+      ..enterprise_name = data['enterprise_name']
+      ..description = data['description']
+      ..own_enterprise = data['own_enterprise']
+      ..facebook = data['facebook']
+      ..linkedin = data['linkedin']
+      ..twitter = data['twitter']
+      ..share_price = data['share_price']
+      ..country = data['country']
+      ..city = data['city']
+      ..photo = data['photo']
+      ..phone = data['phone']
+      ..value = data['value']
+      ..id = data['id']);
+  }
 }

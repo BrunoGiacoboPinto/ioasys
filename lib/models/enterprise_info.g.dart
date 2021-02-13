@@ -72,7 +72,7 @@ class _$EnterpriseInfoSerializer
       result
         ..add('share_price')
         ..add(serializers.serialize(object.share_price,
-            specifiedType: const FullType(int)));
+            specifiedType: const FullType(double)));
     }
     if (object.country != null) {
       result
@@ -159,7 +159,7 @@ class _$EnterpriseInfoSerializer
           break;
         case 'share_price':
           result.share_price = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(double)) as double;
           break;
         case 'country':
           result.country = serializers.deserialize(value,
@@ -210,7 +210,7 @@ class _$EnterpriseInfo extends EnterpriseInfo {
   @override
   final String twitter;
   @override
-  final int share_price;
+  final double share_price;
   @override
   final String country;
   @override
@@ -375,9 +375,9 @@ class EnterpriseInfoBuilder
   String get twitter => _$this._twitter;
   set twitter(String twitter) => _$this._twitter = twitter;
 
-  int _share_price;
-  int get share_price => _$this._share_price;
-  set share_price(int share_price) => _$this._share_price = share_price;
+  double _share_price;
+  double get share_price => _$this._share_price;
+  set share_price(double share_price) => _$this._share_price = share_price;
 
   String _country;
   String get country => _$this._country;

@@ -23,7 +23,7 @@ void main() {
   };
 
   test('Validate model parse enterprise data properly', () {
-    final enterprise = EnterpriseInfo.from(enterpriseData);
+    final enterprise = EnterpriseInfo.fromJson(enterpriseData);
     expect(enterprise.own_enterprise, equals(enterpriseData['own_enterprise']));
     expect(enterprise.description, equals(enterpriseData['description']));
     expect(

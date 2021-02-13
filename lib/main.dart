@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ioasys/layout/colors.dart';
 import 'package:ioasys/layout/curved_container.dart';
 
+import 'api/api_client.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -53,6 +55,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
