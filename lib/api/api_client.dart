@@ -29,7 +29,7 @@ abstract class EnterpriseApiClient {
       @Header('access-token') String accessToken});
 
   @GET('/enterprises')
-  Future<HttpResponse> getEnterprisesWithFilter(
+  Future<HttpResponse<EnterpriseInfoList>> getEnterprisesWithFilter(
       {@Query('enterprise_types') String type,
       @Query('name') String name,
       @Header('uid') String uid,

@@ -65,7 +65,7 @@ class _EnterpriseApiClient implements EnterpriseApiClient {
   }
 
   @override
-  Future<HttpResponse<dynamic>> getEnterprisesWithFilter(
+  Future<HttpResponse<EnterpriseInfoList>> getEnterprisesWithFilter(
       {type, name, uid, client, accessToken}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -74,7 +74,7 @@ class _EnterpriseApiClient implements EnterpriseApiClient {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('/enterprises',
+    final _result = await _dio.request<Map<String, dynamic>>('/enterprises',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -86,7 +86,7 @@ class _EnterpriseApiClient implements EnterpriseApiClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = EnterpriseInfoList.fromJson(_result.data);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
