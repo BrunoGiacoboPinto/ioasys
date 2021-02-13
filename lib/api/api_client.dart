@@ -30,7 +30,7 @@ abstract class EnterpriseApiClient {
 
   @GET('/enterprises')
   Future<HttpResponse<EnterpriseInfoList>> getEnterprisesWithFilter(
-      {@Query('enterprise_types') String type,
+      {@Query('enterprise_types') int type,
       @Query('name') String name,
       @Header('uid') String uid,
       @Header('client') String client,
