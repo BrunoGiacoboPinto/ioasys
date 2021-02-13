@@ -48,4 +48,21 @@ abstract class UserSignUpInfo
 
   @nullable
   bool get success;
+
+  factory UserSignUpInfo.fromJson(Map<String, dynamic> json) {
+    final data = json['investor'];
+    return UserSignUpInfo((b) => b
+      ..portfolio_value = data['portfolio_value']
+      ..investor_name = data['investor_name']
+      ..first_access = data['first_access']
+      ..super_angel = data['super_angel']
+      ..enterprise = data['enterprise']
+      ..balance = data['balance']
+      ..country = data['country']
+      ..success = data['success']
+      ..photo = data['photo']
+      ..email = data['email']
+      ..city = data['city']
+      ..id = data['id']);
+  }
 }
