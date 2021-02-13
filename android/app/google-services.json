@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "448386794089",
+    "project_id": "ioasys-32619",
+    "storage_bucket": "ioasys-32619.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448386794089:android:d00cff830f230c7c3498f8",
+        "android_client_info": {
+          "package_name": "br.com.ioasys"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "448386794089-ek760jds37dksljjn1dsg7c7tnotrjql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-r4dPg0TorFz9mGatVDNaiv1N-Gp8M5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "448386794089-ek760jds37dksljjn1dsg7c7tnotrjql.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
