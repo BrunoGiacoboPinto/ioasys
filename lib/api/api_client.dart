@@ -22,15 +22,17 @@ abstract class EnterpriseApiClient {
       @Header('client') String client,
       @Header('access-token') String accessToken});
 
-  @GET('/enterprises')
-  Future<HttpResponse> getEnterprisesWithFilter(
-    @Query('enterprise_types') String type,
-    @Query('name') String name,
-  );
-
   @GET('/enterprises/{id}')
   Future<HttpResponse<EnterpriseInfo>> getEnterpriseById(
       {@Path('id') int id,
+      @Header('uid') String uid,
+      @Header('client') String client,
+      @Header('access-token') String accessToken});
+
+  @GET('/enterprises')
+  Future<HttpResponse> getEnterprisesWithFilter(
+      {@Query('enterprise_types') String type,
+      @Query('name') String name,
       @Header('uid') String uid,
       @Header('client') String client,
       @Header('access-token') String accessToken});
