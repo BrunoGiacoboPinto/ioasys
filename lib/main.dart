@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ioasys/layout/colors.dart';
-import 'package:ioasys/loader/loader.dart';
+import 'package:ioasys/layout/curved_container.dart';
 
 void main() {
   runApp(MyApp());
@@ -60,10 +60,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: LayoutBuilder(
         builder: (ctx, cts) {
           return Center(
-            child: AnimatedLoader(
-              cts: cts,
-            ),
-          );
+              child: CurvedContainer(
+            cts: cts,
+          ));
         },
       ),
     );
