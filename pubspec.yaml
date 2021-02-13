@@ -20,6 +20,14 @@ dependencies:
 
   retrofit: any
 
+  built_collection: ^4.3.2
+
+  auto_size_text: ^2.1.0
+
+  dio: ^3.0.10
+
+  data_connection_checker: ^0.3.4
+
   base:
     path: base
 
@@ -33,7 +41,9 @@ dev_dependencies:
 
   retrofit_generator: any
 
-  dio: ^3.0.10
+
+
+
 
 flutter:
 
