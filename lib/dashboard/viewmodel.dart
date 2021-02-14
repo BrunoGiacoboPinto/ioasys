@@ -20,7 +20,9 @@ class DashBoardViewModel extends ViewModel<AppState> {
     return "Encontramos $count empresa${count == 1 ? '' : 's'}";
   }
 
-  void toDetails(int id) {}
+  void toDetails(int id) {
+    store.dispatch(NavigateToWithArgs('/details', {'id': id}));
+  }
 
   void toFilter() {
     store.dispatch(NavigateToAction('/filter'));
