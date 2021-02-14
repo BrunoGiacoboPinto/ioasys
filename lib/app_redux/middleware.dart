@@ -2,8 +2,8 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ioasys/api/api_client.dart';
-import 'package:ioasys/search/action.dart';
-import 'package:ioasys/search/middleware.dart';
+import 'package:ioasys/search_redux/action.dart';
+import 'package:ioasys/search_redux/middleware.dart';
 import 'package:redux/redux.dart';
 
 import 'state.dart';

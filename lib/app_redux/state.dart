@@ -1,6 +1,6 @@
 import 'package:base/base.dart';
 import 'package:ioasys/models/auth_credentials.dart';
-import 'package:ioasys/search/state.dart';
+import 'package:ioasys/search_redux/state.dart';
 
 class AppState extends BaseState {
   final AuthCredentials credentials;

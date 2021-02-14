@@ -1,10 +1,10 @@
 import 'package:base/base.dart';
 import 'package:flutter/material.dart';
+import 'package:ioasys/app_redux/state.dart';
 import 'package:ioasys/dashboard/viewmodel.dart';
 import 'package:ioasys/layout/colors.dart';
 import 'package:ioasys/loader/loader.dart';
-import 'package:ioasys/redux/state.dart';
-import 'package:ioasys/search/state.dart';
+import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
 
 class DashBoardView extends View<DashBoardViewModel, AppState> {

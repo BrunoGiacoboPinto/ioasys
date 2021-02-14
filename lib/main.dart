@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:ioasys/redux/middleware.dart';
-import 'package:ioasys/redux/reducer.dart';
-import 'package:ioasys/redux/state.dart';
-import 'package:ioasys/search/state.dart';
+import 'package:ioasys/app_redux/middleware.dart';
+import 'package:ioasys/app_redux/reducer.dart';
+import 'package:ioasys/app_redux/state.dart';
+import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
 
 import 'navigation/navigation.dart';

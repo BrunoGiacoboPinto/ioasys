@@ -90,4 +90,28 @@ class _EnterpriseApiClient implements EnterpriseApiClient {
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
+
+  @override
+  Future<HttpResponse<EnterpriseInfoList>> getEnterprisesWithName(
+      {name, uid, client, accessToken}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'name': name};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('/enterprises',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'uid': uid,
+              r'client': client,
+              r'access-token': accessToken
+            },
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = EnterpriseInfoList.fromJson(_result.data);
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
 }

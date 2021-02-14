@@ -4,9 +4,9 @@ import 'package:async/async.dart';
 import 'package:base/base.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:ioasys/api/api_client.dart';
+import 'package:ioasys/app_redux/state.dart';
 import 'package:ioasys/models/enterprise_list.dart';
-import 'package:ioasys/redux/state.dart';
-import 'package:ioasys/search/state.dart';
+import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
 import 'package:retrofit/dio.dart';
 
@@ -32,15 +32,14 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
 
       store.dispatch(SearchLoadingAction());
 
-      // Wait until user stop type
+      // Wait until user stop typing
       _timer = Timer(Duration(milliseconds: 250), () {
         final client = store.state.client;
         final token = store.state.token;
         final uid = store.state.uid;
 
         _currentOperation = CancelableOperation.fromFuture(apiClient
-            .getEnterprisesWithFilter(
-              type: 3,
+            .getEnterprisesWithName(
               accessToken: token,
               name: action.name,
               client: client,

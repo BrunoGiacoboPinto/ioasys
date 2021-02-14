@@ -1,6 +1,7 @@
 import 'package:ioasys/models/auth_credentials.dart';
-import 'package:ioasys/redux/state.dart';
-import 'package:ioasys/search/reducer.dart';
+import 'package:ioasys/search_redux/reducer.dart';
+
+import 'state.dart';
 
 AppState reducer(AppState prev, dynamic action) {
   return AppState.copyWith(
