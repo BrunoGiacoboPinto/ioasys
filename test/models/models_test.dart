@@ -18,12 +18,12 @@ void main() {
     "city": "Bristol",
     "country": "UK",
     "value": 0,
-    "share_price": 5000,
+    "share_price": 5000.0,
     "enterprise_type": {"id": 3, "enterprise_type_name": "Health"}
   };
 
   test('Validate model parse enterprise data properly', () {
-    final enterprise = EnterpriseInfo.fromJson(enterpriseData);
+    final enterprise = EnterpriseInfo.of(enterpriseData);
     expect(enterprise.own_enterprise, equals(enterpriseData['own_enterprise']));
     expect(enterprise.description, equals(enterpriseData['description']));
     expect(
