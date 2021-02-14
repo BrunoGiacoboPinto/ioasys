@@ -14,6 +14,22 @@ class LoginForm extends StatelessWidget {
 
   LoginForm({Key key, this.onLogin, this.cts}) : super(key: key);
 
+  String _validateEmailInput(String value) {
+    if (value.isEmpty) {
+      return 'Preencha seu endereço de e-mail';
+    }
+
+    if (!EmailValidator.validate(value)) {
+      return 'Endereço de e-mail inválido.';
+    }
+
+    return null;
+  }
+
+  String _validatePasswordInput(String value) {
+    return value.isEmpty ? 'Preencha sua senha numérica' : null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -25,17 +41,7 @@ class LoginForm extends StatelessWidget {
           children: [
             LoginTextField(
               inputType: TextInputType.emailAddress,
-              onValidate: (value) {
-                if (value.isEmpty) {
-                  return 'Preencha seu endereço de e-mail';
-                }
-
-                if (!EmailValidator.validate(value)) {
-                  return 'Endereço de e-mail inválido.';
-                }
-
-                return null;
-              },
+              onValidate: _validateEmailInput,
               onSave: (value) {
                 _credentials['email'] = value.trim();
               },
@@ -48,9 +54,7 @@ class LoginForm extends StatelessWidget {
             LoginTextField(
               inputType: TextInputType.number,
               label: 'Senha',
-              onValidate: (value) {
-                return value.isEmpty ? 'Preencha sua senha numérica' : null;
-              },
+              onValidate: _validatePasswordInput,
               onSave: (value) {
                 _credentials['password'] = value.trim();
               },
