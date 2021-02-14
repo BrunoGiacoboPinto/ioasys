@@ -6,6 +6,8 @@ class SearchAction {
   SearchAction(this.name);
 }
 
+class SearchResetAction {}
+
 class SearchLoadingAction {}
 
 class SearchErrorAction {}

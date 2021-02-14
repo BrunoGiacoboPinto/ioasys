@@ -2,11 +2,15 @@ import 'package:base/base.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys/app_redux/state.dart';
+import 'package:ioasys/dashboard/layout/search_completed.dart';
+import 'package:ioasys/dashboard/layout/search_empty.dart';
+import 'package:ioasys/dashboard/layout/search_loading.dart';
 import 'package:ioasys/dashboard/viewmodel.dart';
 import 'package:ioasys/layout/colors.dart';
-import 'package:ioasys/loader/loader.dart';
 import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
+
+import 'layout/search_appbar.dart';
 
 class DashBoardView extends View<DashBoardViewModel, AppState> {
   @override
@@ -36,167 +40,41 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
       ),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-              floating: true,
-              snap: true,
-              flexibleSpace: Container(
-                  child: Stack(
-                    fit: StackFit.expand,
-                    overflow: Overflow.visible,
-                    children: [
-                      Positioned(
-                          top: cts.h(.225),
-                          left: cts.w(.05),
-                          right: cts.w(.05),
-                          child: Column(
-                            children: [
-                              Card(
-                                child: Container(
-                                  width: cts.w(.9),
-                                  height: cts.h(.065),
-                                  child: Center(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: TextField(
-                                        decoration: InputDecoration(
-                                          suffixIcon: Icon(
-                                            Icons.search,
-                                            color: darkGrey,
-                                            size: 24,
-                                          ),
-                                          border: InputBorder.none,
-                                          hintText: 'Procure empresas',
-                                        ),
-                                        style: TextStyle(
-                                          fontSize: 24.0,
-                                          decoration: TextDecoration.none,
-                                        ),
-                                        onChanged: vm.onSearch,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: cts.h(.02),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 16),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      '4 empresas encontradas',
-                                      style: TextStyle(fontSize: 18),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )),
-                    ],
-                  ),
-                  width: double.infinity,
-                  height: cts.h(.4),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [Colors.pink, Colors.purple]))),
-              collapsedHeight: cts.h(.15),
-              expandedHeight: cts.h(.2)),
+          SearchAppBarView(
+            searchResultText: vm.resultCountHeadline,
+            searchState: vm.searchState,
+            onSearch: vm.onSearch,
+            cts: cts,
+          ),
           SliverToBoxAdapter(
             child: Container(
               color: Colors.grey[300],
               height: cts.h(.15),
             ),
           ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: cts.w(.0125), vertical: cts.h(.0025)),
-                  child: Column(
-                    children: [
-                      Container(
-                        color: Colors.orange,
-                        height: cts.h(.2),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: cts.w(.0125), vertical: cts.h(.0025)),
-                  child: Column(
-                    children: [
-                      Container(
-                        color: Colors.amber,
-                        height: cts.h(.2),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: cts.w(.0125), vertical: cts.h(.0025)),
-                  child: Column(
-                    children: [
-                      Container(
-                        color: Colors.purple,
-                        height: cts.h(.2),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: cts.w(.0125), vertical: cts.h(.0025)),
-                  child: Column(
-                    children: [
-                      Container(
-                        color: Colors.blueAccent,
-                        height: cts.h(.2),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
+          _selectViewForState(vm, cts)
         ],
       ),
     );
   }
 
-  Widget _viewFor(SearchState state, BoxConstraints cts) {
-    if (state is SearchLoading) {
-      return Center(
-        child: AnimatedLoader(
-          cts: cts,
-        ),
+  Widget _selectViewForState(DashBoardViewModel vm, BoxConstraints cts) {
+    if (vm.searchState is SearchLoadingState) {
+      return SearchLoadingView(
+        cts: cts,
       );
-    } else if (state is SearchEmpty) {
-      return Center(
-        child: Text('Nenhuma empresa encontrada'),
+    } else if (vm.searchState is SearchEmptyState) {
+      return SearchEmptyView(
+        cts: cts,
       );
-    } else if (state is SearchPopulated) {
-      final companies = state.result.enterprises;
-
-      return Center(
-          child: ListView.builder(
-              itemCount: companies.length,
-              itemBuilder: (ctx, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                  child: Row(
-                    children: [
-                      Text(
-                          'Comapny(${companies[index].id}) = ${companies[index].enterprise_name}')
-                    ],
-                  ),
-                );
-              }));
+    } else if (vm.searchState is SearchPopulatedState) {
+      return SearchCompletedView(
+        searched: vm.searchState,
+        onSelected: vm.toDetails,
+        cts: cts,
+      );
     }
+
+    return SliverToBoxAdapter(child: Container());
   }
 }

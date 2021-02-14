@@ -10,9 +10,17 @@ class DashBoardViewModel extends ViewModel<AppState> {
   SearchState get searchState => store.state.searchState;
 
   void onSearch(String name) {
-    logger.d('I should not call if ${name.isEmpty}');
-    store.dispatch(name.isEmpty ? SearchEmpty() : SearchAction(name));
+    store.dispatch(name.isEmpty ? SearchResetAction() : SearchAction(name));
   }
+
+  String resultCountHeadline() {
+    final companies = searchState as SearchPopulatedState;
+    int count = companies.result.enterprises.length;
+
+    return "Encontramos $count empresa${count == 1 ? '' : 's'}";
+  }
+
+  void toDetails(int id) {}
 
   void toFilter() {
     store.dispatch(NavigateToAction('/filter'));
