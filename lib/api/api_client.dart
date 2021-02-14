@@ -31,9 +31,3 @@ abstract class EnterpriseApiClient {
       @Header('client') String client,
       @Header('access-token') String accessToken});
 }
-
-final enterpriseApi = EnterpriseApiClient(Dio(BaseOptions(
-  headers: {'Content-Type': 'application/json'},
-  connectTimeout: 5000,
-  receiveTimeout: 5000,
-)));

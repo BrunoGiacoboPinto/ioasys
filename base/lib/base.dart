@@ -3,6 +3,7 @@ library base;
 export 'package:logger/logger.dart';
 
 export 'src/extensions/boxconstraints_ext.dart';
+export 'src/logger.dart';
 export 'src/navigation/action.dart';
 export 'src/navigation/middleware.dart';
 export 'src/state.dart';
