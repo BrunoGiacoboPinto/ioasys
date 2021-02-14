@@ -25,7 +25,7 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
       backgroundColor: Colors.grey[300],
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: vm.toFilter,
         child: Icon(
           Icons.filter_list,
           color: Colors.white,

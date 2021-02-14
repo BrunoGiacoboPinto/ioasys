@@ -13,4 +13,8 @@ class DashBoardViewModel extends ViewModel<AppState> {
     logger.d('I should not call if ${name.isEmpty}');
     store.dispatch(name.isEmpty ? SearchEmpty() : SearchAction(name));
   }
+
+  void toFilter() {
+    store.dispatch(NavigateToAction('/filter'));
+  }
 }
