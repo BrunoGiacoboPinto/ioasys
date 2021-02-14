@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ioasys/layout/enterprise_entry_item.dart';
 import 'package:ioasys/models/enterprise_info.dart';
+
+import 'file:///C:/Users/BrunoGiacobo/Documents/Code/ioasys/lib/dashboard/layout/enterprise_entry_item.dart';
 
 class BlankPageView extends StatelessWidget {
   @override
