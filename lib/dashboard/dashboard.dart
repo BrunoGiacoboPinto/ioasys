@@ -1,4 +1,5 @@
 import 'package:base/base.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys/app_redux/state.dart';
 import 'package:ioasys/dashboard/viewmodel.dart';
@@ -46,6 +47,7 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
                       Positioned(
                           top: cts.h(.225),
                           left: cts.w(.05),
+                          right: cts.w(.05),
                           child: Column(
                             children: [
                               Card(
@@ -75,8 +77,22 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
                                   ),
                                 ),
                               ),
+                              SizedBox(
+                                height: cts.h(.02),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      '4 empresas encontradas',
+                                      style: TextStyle(fontSize: 18),
+                                    )
+                                  ],
+                                ),
+                              ),
                             ],
-                          ))
+                          )),
                     ],
                   ),
                   width: double.infinity,
@@ -89,20 +105,62 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
               collapsedHeight: cts.h(.15),
               expandedHeight: cts.h(.2)),
           SliverToBoxAdapter(
-            child: Container(color: Colors.grey[300], height: cts.h(.12)),
+            child: Container(
+              color: Colors.grey[300],
+              height: cts.h(.15),
+            ),
           ),
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                Container(color: Colors.red, height: 150.0),
-                Container(color: Colors.purple, height: 150.0),
-                Container(color: Colors.green, height: 150.0),
-                Container(color: Colors.red, height: 150.0),
-                Container(color: Colors.purple, height: 150.0),
-                Container(color: Colors.green, height: 150.0),
-                Container(color: Colors.red, height: 150.0),
-                Container(color: Colors.purple, height: 150.0),
-                Container(color: Colors.green, height: 150.0),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: cts.w(.0125), vertical: cts.h(.0025)),
+                  child: Column(
+                    children: [
+                      Container(
+                        color: Colors.orange,
+                        height: cts.h(.2),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: cts.w(.0125), vertical: cts.h(.0025)),
+                  child: Column(
+                    children: [
+                      Container(
+                        color: Colors.amber,
+                        height: cts.h(.2),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: cts.w(.0125), vertical: cts.h(.0025)),
+                  child: Column(
+                    children: [
+                      Container(
+                        color: Colors.purple,
+                        height: cts.h(.2),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: cts.w(.0125), vertical: cts.h(.0025)),
+                  child: Column(
+                    children: [
+                      Container(
+                        color: Colors.blueAccent,
+                        height: cts.h(.2),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           )
