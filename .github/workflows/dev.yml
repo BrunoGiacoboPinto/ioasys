@@ -15,5 +15,5 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: stable
-      - name: Build Project
-        run: flutter build apk --debug --pub
+      - name: Test Project
+        run: flutter test
