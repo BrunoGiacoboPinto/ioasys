@@ -33,8 +33,7 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
         ),
         backgroundColor: darkGrey,
       ),
-      body: SafeArea(
-          child: CustomScrollView(
+      body: CustomScrollView(
         slivers: [
           SliverAppBar(
               floating: true,
@@ -45,7 +44,7 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
                     overflow: Overflow.visible,
                     children: [
                       Positioned(
-                          top: cts.h(.165),
+                          top: cts.h(.225),
                           left: cts.w(.05),
                           child: Column(
                             children: [
@@ -108,7 +107,7 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
             ),
           )
         ],
-      )),
+      ),
     );
   }
 
