@@ -2,16 +2,16 @@ import 'package:ioasys/models/enterprise_list.dart';
 
 abstract class SearchState {}
 
-class SearchInitial implements SearchState {}
+class SearchInitialSate implements SearchState {}
 
-class SearchLoading implements SearchState {}
+class SearchLoadingState implements SearchState {}
 
-class SearchEmpty implements SearchState {}
+class SearchEmptyState implements SearchState {}
 
 class SearchError implements SearchState {}
 
-class SearchPopulated implements SearchState {
+class SearchPopulatedState implements SearchState {
   final EnterpriseInfoList result;
 
-  SearchPopulated(this.result);
+  SearchPopulatedState(this.result);
 }

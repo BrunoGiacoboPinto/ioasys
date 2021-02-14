@@ -1,3 +1,4 @@
+import 'package:base/base.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/widgets.dart';
@@ -17,8 +18,8 @@ List<Middleware<AppState>> middleware(GlobalKey<NavigatorState> navigator) {
 
   final connChecker = DataConnectionChecker();
 
-  return [
-    TypedMiddleware<AppState, SearchAction>(
-        SearchMiddleware(enterpriseApi, connChecker))
-  ];
+  return []
+    ..add(TypedMiddleware<AppState, SearchAction>(
+        SearchMiddleware(enterpriseApi, connChecker)))
+    ..addAll(navigationMiddleware(navigator));
 }

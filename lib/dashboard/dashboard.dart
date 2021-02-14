@@ -1,11 +1,16 @@
 import 'package:base/base.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys/app_redux/state.dart';
+import 'package:ioasys/dashboard/layout/search_completed.dart';
+import 'package:ioasys/dashboard/layout/search_empty.dart';
+import 'package:ioasys/dashboard/layout/search_loading.dart';
 import 'package:ioasys/dashboard/viewmodel.dart';
 import 'package:ioasys/layout/colors.dart';
-import 'package:ioasys/loader/loader.dart';
 import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
+
+import 'layout/search_appbar.dart';
 
 class DashBoardView extends View<DashBoardViewModel, AppState> {
   @override
@@ -22,62 +27,54 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
   @override
   Widget layout(BoxConstraints cts, BuildContext ctx, DashBoardViewModel vm) {
     return Scaffold(
-      backgroundColor: midGrey,
-      body: SafeArea(
-        child: Flex(direction: Axis.vertical, children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(16),
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Search ...',
-              ),
-              style: TextStyle(
-                fontSize: 24.0,
-                decoration: TextDecoration.none,
-              ),
-              onChanged: vm.onSearch,
+      backgroundColor: Colors.grey[300],
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: vm.toFilter,
+        child: Icon(
+          Icons.filter_list,
+          color: Colors.white,
+          size: 24,
+        ),
+        backgroundColor: darkGrey,
+      ),
+      body: CustomScrollView(
+        slivers: [
+          SearchAppBarView(
+            searchResultText: vm.resultCountHeadline,
+            searchState: vm.searchState,
+            onSearch: vm.onSearch,
+            cts: cts,
+          ),
+          SliverToBoxAdapter(
+            child: Container(
+              color: Colors.grey[300],
+              height: cts.h(.15),
             ),
           ),
-          Expanded(
-            child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 500),
-              child: _viewFor(vm.searchState, cts),
-            ),
-          )
-        ]),
+          _selectViewForState(vm, cts)
+        ],
       ),
     );
   }
 
-  Widget _viewFor(SearchState state, BoxConstraints cts) {
-    if (state is SearchLoading) {
-      return Center(
-        child: AnimatedLoader(
-          cts: cts,
-        ),
+  Widget _selectViewForState(DashBoardViewModel vm, BoxConstraints cts) {
+    if (vm.searchState is SearchLoadingState) {
+      return SearchLoadingView(
+        cts: cts,
       );
-    } else if (state is SearchEmpty) {
-      return Center(
-        child: Text('Nenhuma empresa encontrada'),
+    } else if (vm.searchState is SearchEmptyState) {
+      return SearchEmptyView(
+        cts: cts,
       );
-    } else if (state is SearchPopulated) {
-      final companies = state.result.enterprises;
-
-      return Center(
-          child: ListView.builder(
-              itemCount: companies.length,
-              itemBuilder: (ctx, index) {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-                  child: Row(
-                    children: [
-                      Text(
-                          'Comapny(${companies[index].id}) = ${companies[index].enterprise_name}')
-                    ],
-                  ),
-                );
-              }));
+    } else if (vm.searchState is SearchPopulatedState) {
+      return SearchCompletedView(
+        searched: vm.searchState,
+        onSelected: vm.toDetails,
+        cts: cts,
+      );
     }
+
+    return SliverToBoxAdapter(child: Container());
   }
 }

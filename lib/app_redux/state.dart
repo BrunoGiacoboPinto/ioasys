@@ -14,6 +14,9 @@ class AppState extends BaseState {
 
   AppState({this.searchState, this.credentials});
 
+  factory AppState.initial() => AppState(
+      searchState: SearchInitialSate(), credentials: AuthCredentials());
+
   factory AppState.copyWith({SearchState searchArg, AuthCredentials authArg}) =>
       AppState(searchState: searchArg, credentials: authArg);
 }

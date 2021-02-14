@@ -3,7 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:ioasys/app_redux/middleware.dart';
 import 'package:ioasys/app_redux/reducer.dart';
 import 'package:ioasys/app_redux/state.dart';
-import 'package:ioasys/search_redux/state.dart';
+import 'package:ioasys/layout/colors.dart';
 import 'package:redux/redux.dart';
 
 import 'navigation/navigation.dart';
@@ -16,13 +16,14 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreProvider(
       store: Store<AppState>(reducer,
-          initialState: AppState.copyWith(searchArg: SearchEmpty()),
+          initialState: AppState.initial(),
           middleware: middleware(navigator),
           distinct: true),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Ioasys',
         theme: ThemeData(
+          primaryColor: lightPink,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         navigatorKey: navigator,
