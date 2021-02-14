@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:ioasys/layout/colors.dart';
 
 class LoginTextField extends StatefulWidget {
+  final Function(String) onValidate;
+  final Function(String) onSave;
   final BoxConstraints cts;
   final String label;
 
-  const LoginTextField({Key key, this.cts, this.label}) : super(key: key);
+  final TextInputType inputType;
+
+  const LoginTextField(
+      {Key key,
+      this.cts,
+      this.label,
+      this.onValidate,
+      this.onSave,
+      this.inputType})
+      : super(key: key);
 
   @override
   _LoginTextFieldState createState() => _LoginTextFieldState();
@@ -15,6 +26,8 @@ class _LoginTextFieldState extends State<LoginTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: widget.inputType,
+      onSaved: widget.onSave,
       cursorColor: lightPink,
       cursorHeight: 24,
       decoration: InputDecoration(
@@ -41,12 +54,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
           ),
         ),
       ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return 'Please enter some text';
-        }
-        return null;
-      },
+      validator: widget.onValidate,
     );
   }
 }

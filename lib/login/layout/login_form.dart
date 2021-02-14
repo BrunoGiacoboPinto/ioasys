@@ -1,4 +1,5 @@
 import 'package:base/base.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys/layout/colors.dart';
 import 'package:ioasys/login/layout/login_textfield.dart';
@@ -8,6 +9,8 @@ class LoginForm extends StatelessWidget {
   final BoxConstraints cts;
 
   final _formKey = GlobalKey<FormState>();
+
+  final _credentials = <String, String>{};
 
   LoginForm({Key key, this.onLogin, this.cts}) : super(key: key);
 
@@ -21,6 +24,21 @@ class LoginForm extends StatelessWidget {
         child: Column(
           children: [
             LoginTextField(
+              inputType: TextInputType.emailAddress,
+              onValidate: (value) {
+                if (value.isEmpty) {
+                  return 'Preencha seu endereço de e-mail';
+                }
+
+                if (!EmailValidator.validate(value)) {
+                  return 'Endereço de e-mail inválido.';
+                }
+
+                return null;
+              },
+              onSave: (value) {
+                _credentials['email'] = value.trim();
+              },
               label: 'E-mail',
               cts: cts,
             ),
@@ -28,7 +46,14 @@ class LoginForm extends StatelessWidget {
               height: cts.h(.05),
             ),
             LoginTextField(
+              inputType: TextInputType.number,
               label: 'Senha',
+              onValidate: (value) {
+                return value.isEmpty ? 'Preencha sua senha numérica' : null;
+              },
+              onSave: (value) {
+                _credentials['password'] = value.trim();
+              },
               cts: cts,
             ),
             SizedBox(
@@ -43,15 +68,23 @@ class LoginForm extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'ENTRAR',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   ),
                 ),
                 textColor: Colors.white,
                 color: lightPink,
                 onPressed: () {
-                  print('___ Called');
-                })
+                  if (_formKey.currentState.validate()) {
+                    _formKey.currentState.save();
+
+                    print('___ validated $_credentials');
+                  }
+                }),
+            SizedBox(
+              height: cts.h(.05),
+            ),
           ],
         ),
       ),
