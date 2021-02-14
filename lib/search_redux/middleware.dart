@@ -25,6 +25,10 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
   void call(Store<AppState> store, dynamic action, next) async {
     logger.d('[SearchMiddleware] searching for term ${action.name}');
 
+    if (action.name.isEmpty) {
+      return store.dispatch(SearchResetAction());
+    }
+
     if (await checker.hasConnection) {
       // Cancel previous search attempt
       _timer?.cancel();
@@ -45,8 +49,9 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
               client: client,
               uid: uid,
             )
-            .then((response) =>
-                store.dispatch(SearchResultCompletedAction(response.data))));
+            .then((response) => store.dispatch(response.data.enterprises.isEmpty
+                ? SearchEmptyAction()
+                : SearchResultCompletedAction(response.data))));
       });
     } else {
       store.dispatch(SearchError());

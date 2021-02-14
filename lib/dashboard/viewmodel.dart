@@ -10,7 +10,7 @@ class DashBoardViewModel extends ViewModel<AppState> {
   SearchState get searchState => store.state.searchState;
 
   void onSearch(String name) {
-    store.dispatch(name.isEmpty ? SearchResetAction() : SearchAction(name));
+    store.dispatch(SearchAction(name));
   }
 
   String resultCountHeadline() {

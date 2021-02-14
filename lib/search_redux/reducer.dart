@@ -8,6 +8,7 @@ final searchReducer = combineReducers<SearchState>([
   TypedReducer<SearchState, SearchErrorAction>(_onError),
   TypedReducer<SearchState, SearchResultCompletedAction>(_onResult),
   TypedReducer<SearchState, SearchResetAction>(_onReset),
+  TypedReducer<SearchState, SearchEmptyAction>(_onEmpty),
 ]);
 
 SearchState _onLoad(SearchState prev, SearchLoadingAction action) =>
@@ -18,6 +19,9 @@ SearchState _onError(SearchState prev, SearchErrorAction action) =>
 
 SearchState _onReset(SearchState prev, SearchResetAction action) =>
     SearchInitialSate();
+
+SearchState _onEmpty(SearchState prev, SearchEmptyAction action) =>
+    SearchEmptyState();
 
 SearchState _onResult(SearchState prev, SearchResultCompletedAction action) =>
     SearchPopulatedState(action.result);

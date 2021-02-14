@@ -10,6 +10,8 @@ class SearchResetAction {}
 
 class SearchLoadingAction {}
 
+class SearchEmptyAction {}
+
 class SearchErrorAction {}
 
 class SearchResultCompletedAction {
