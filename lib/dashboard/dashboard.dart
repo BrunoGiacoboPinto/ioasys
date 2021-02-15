@@ -25,9 +25,12 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
   @override
   void onInitializeCallBack(Store<AppState> store) {}
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget layout(BoxConstraints cts, BuildContext ctx, DashBoardViewModel vm) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey[300],
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
@@ -51,24 +54,30 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
             searchResultText: vm.resultCountHeadline(),
             cts: cts,
           ),
-          _selectViewForState(vm, cts)
+          _selectViewForState(vm, cts, ctx)
         ],
       ),
     );
   }
 
-  Widget _selectViewForState(DashBoardViewModel vm, BoxConstraints cts) {
-    if (vm.searchState is SearchLoadingState) {
+  Widget _selectViewForState(
+      DashBoardViewModel vm, BoxConstraints cts, BuildContext ctx) {
+    final state = vm.searchState;
+
+    if (state is SearchErrorState) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+          duration: Duration(milliseconds: 4500), content: Text(state.reason)));
+    } else if (state is SearchLoadingState) {
       return SearchLoadingView(
         cts: cts,
       );
-    } else if (vm.searchState is SearchEmptyState) {
+    } else if (state is SearchEmptyState) {
       return SearchEmptyView(
         cts: cts,
       );
-    } else if (vm.searchState is SearchPopulatedState) {
+    } else if (state is SearchPopulatedState) {
       return SearchCompletedView(
-        searched: vm.searchState,
+        searched: state,
         onSelected: vm.toDetails,
         cts: cts,
       );

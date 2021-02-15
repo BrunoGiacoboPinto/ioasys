@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:base/base.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:dio/dio.dart';
 import 'package:ioasys/app_redux/state.dart';
+import 'package:ioasys/login_redux/action.dart';
 import 'package:ioasys/models/enterprise_list.dart';
 import 'package:ioasys/persistence/repository.dart';
-import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
 import 'package:retrofit/dio.dart';
 
@@ -20,6 +21,27 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
 
   Timer _timer;
   CancelableOperation<HttpResponse<EnterpriseInfoList>> _currentOperation;
+
+  Future<void> _handleSearchErrors(
+      Exception ex, StackTrace stack, Store<AppState> store) {
+    if (ex is DioError) {
+      // User session credentials expired, requesting new one since we dont keep
+      // his password.
+      if (ex.response.statusCode == 401) {
+        Future.delayed(Duration(milliseconds: 850), () {
+          store.dispatch(
+              LoginErrorAction('User session expired. Please log in again.'));
+        });
+
+        store.dispatch(LogUserOutAction());
+      } else {
+        store.dispatch(
+            SearchErrorAction('Our services are momentarely unavailable.'));
+      }
+    } else {
+      store.dispatch('Somenthing went really arraaay :(');
+    }
+  }
 
   @override
   void call(Store<AppState> store, dynamic action, next) async {
@@ -44,10 +66,17 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
             .fetch(action.name, credentials)
             .then((data) => store.dispatch(data.enterprises.isEmpty
                 ? SearchEmptyAction()
-                : SearchResultCompletedAction(data))));
+                : SearchResultCompletedAction(data)))
+            .catchError((ex, stack) => _handleSearchErrors(ex, stack, store)));
       });
     } else {
-      store.dispatch(SearchError());
+      if (repository.containsKey(action.name)) {
+        final data = await repository.load(action.name);
+        store.dispatch(SearchResultCompletedAction(data));
+      } else {
+        store.dispatch(SearchErrorAction(
+            'Fail to connect to the internet. Check your connection.'));
+      }
     }
 
     next(action);
