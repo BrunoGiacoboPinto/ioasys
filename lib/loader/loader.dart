@@ -10,8 +10,7 @@ class AnimatedLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Stack(
+    return Stack(
       children: [
         Center(
           child: SpinKitRing(
@@ -28,6 +27,6 @@ class AnimatedLoader extends StatelessWidget {
           ),
         )
       ],
-    ));
+    );
   }
 }
