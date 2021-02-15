@@ -7,13 +7,9 @@ class AppState extends BaseState {
   final LoginState loginState;
   final SearchState searchState;
 
-  AuthCredentials get _authCredentials {
+  AuthCredentials get authCredentials {
     return (loginState as LoginSuccessState).authCredentials;
   }
-
-  String get token => _authCredentials.accessToken;
-  String get client => _authCredentials.client;
-  String get uid => _authCredentials.uid;
 
   AppState({this.searchState, this.loginState});
 
