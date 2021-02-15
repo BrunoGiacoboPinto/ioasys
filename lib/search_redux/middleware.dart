@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:async/async.dart';
 import 'package:base/base.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
-import 'package:ioasys/api/api_client.dart';
 import 'package:ioasys/app_redux/state.dart';
 import 'package:ioasys/models/enterprise_list.dart';
+import 'package:ioasys/persistence/repository.dart';
 import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
 import 'package:retrofit/dio.dart';
@@ -14,9 +14,9 @@ import 'action.dart';
 
 class SearchMiddleware extends MiddlewareClass<AppState> {
   final DataConnectionChecker checker;
-  final EnterpriseApiClient apiClient;
+  final EnterprisesRepository repository;
 
-  SearchMiddleware(this.apiClient, this.checker);
+  SearchMiddleware(this.repository, this.checker);
 
   Timer _timer;
   CancelableOperation<HttpResponse<EnterpriseInfoList>> _currentOperation;
@@ -38,20 +38,13 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
 
       // Wait until user stop typing
       _timer = Timer(Duration(milliseconds: 250), () {
-        final client = store.state.client;
-        final token = store.state.token;
-        final uid = store.state.uid;
+        final credentials = store.state.authCredentials;
 
-        _currentOperation = CancelableOperation.fromFuture(apiClient
-            .getEnterprisesWithName(
-              accessToken: token,
-              name: action.name,
-              client: client,
-              uid: uid,
-            )
-            .then((response) => store.dispatch(response.data.enterprises.isEmpty
+        _currentOperation = CancelableOperation.fromFuture(repository
+            .fetch(action.name, credentials)
+            .then((data) => store.dispatch(data.enterprises.isEmpty
                 ? SearchEmptyAction()
-                : SearchResultCompletedAction(response.data))));
+                : SearchResultCompletedAction(data))));
       });
     } else {
       store.dispatch(SearchError());
