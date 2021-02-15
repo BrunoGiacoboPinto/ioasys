@@ -14,10 +14,14 @@ class DashBoardViewModel extends ViewModel<AppState> {
   }
 
   String resultCountHeadline() {
-    final companies = searchState as SearchPopulatedState;
-    int count = companies.result.enterprises.length;
+    if (searchState is SearchPopulatedState) {
+      final companies = searchState as SearchPopulatedState;
+      int count = companies.result.enterprises.length;
 
-    return "Encontramos $count empresa${count == 1 ? '' : 's'}";
+      return "Encontramos $count empresa${count == 1 ? '' : 's'}";
+    }
+
+    return '';
   }
 
   void toDetails(int id) {

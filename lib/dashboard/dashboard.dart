@@ -11,6 +11,7 @@ import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
 
 import 'layout/search_appbar.dart';
+import 'layout/search_count.dart';
 
 class DashBoardView extends View<DashBoardViewModel, AppState> {
   @override
@@ -41,16 +42,14 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
       body: CustomScrollView(
         slivers: [
           SearchAppBarView(
-            searchResultText: vm.resultCountHeadline,
             searchState: vm.searchState,
             onSearch: vm.onSearch,
             cts: cts,
           ),
-          SliverToBoxAdapter(
-            child: Container(
-              color: Colors.grey[300],
-              height: cts.h(.15),
-            ),
+          SearchCountView(
+            searchSucceed: vm.searchState is SearchPopulatedState,
+            searchResultText: vm.resultCountHeadline(),
+            cts: cts,
           ),
           _selectViewForState(vm, cts)
         ],
