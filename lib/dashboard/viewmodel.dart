@@ -10,7 +10,7 @@ class DashBoardViewModel extends ViewModel<AppState> {
   SearchState get searchState => store.state.searchState;
 
   void onSearch(String name) {
-    store.dispatch(name.isEmpty ? SearchResetAction() : SearchAction(name));
+    store.dispatch(SearchAction(name));
   }
 
   String resultCountHeadline() {
@@ -20,7 +20,9 @@ class DashBoardViewModel extends ViewModel<AppState> {
     return "Encontramos $count empresa${count == 1 ? '' : 's'}";
   }
 
-  void toDetails(int id) {}
+  void toDetails(int id) {
+    store.dispatch(NavigateToWithArgs('/details', {'id': id}));
+  }
 
   void toFilter() {
     store.dispatch(NavigateToAction('/filter'));

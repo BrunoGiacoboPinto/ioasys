@@ -1,22 +1,25 @@
 import 'package:base/base.dart';
+import 'package:ioasys/login_redux/state.dart';
 import 'package:ioasys/models/auth_credentials.dart';
 import 'package:ioasys/search_redux/state.dart';
 
 class AppState extends BaseState {
-  final AuthCredentials credentials;
+  final LoginState loginState;
   final SearchState searchState;
 
-  String get token => credentials.accessToken;
+  AuthCredentials get _authCredentials {
+    return (loginState as LoginSuccessState).authCredentials;
+  }
 
-  String get client => credentials.client;
+  String get token => _authCredentials.accessToken;
+  String get client => _authCredentials.client;
+  String get uid => _authCredentials.uid;
 
-  String get uid => credentials.uid;
-
-  AppState({this.searchState, this.credentials});
+  AppState({this.searchState, this.loginState});
 
   factory AppState.initial() => AppState(
-      searchState: SearchInitialSate(), credentials: AuthCredentials());
+      searchState: SearchInitialSate(), loginState: LoginInitialState());
 
-  factory AppState.copyWith({SearchState searchArg, AuthCredentials authArg}) =>
-      AppState(searchState: searchArg, credentials: authArg);
+  factory AppState.copyWith({SearchState searchArg, LoginState loginArg}) =>
+      AppState(searchState: searchArg, loginState: loginArg);
 }

@@ -28,6 +28,7 @@ class App extends StatelessWidget {
         ),
         navigatorKey: navigator,
         onGenerateRoute: routes,
+        initialRoute: '/login',
       ),
     );
   }

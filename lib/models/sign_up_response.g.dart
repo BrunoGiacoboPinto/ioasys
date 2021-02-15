@@ -24,7 +24,7 @@ class _$UserSignUpInfoSerializer
       result
         ..add('portfolio_value')
         ..add(serializers.serialize(object.portfolio_value,
-            specifiedType: const FullType(int)));
+            specifiedType: const FullType(double)));
     }
     if (object.first_access != null) {
       result
@@ -60,7 +60,7 @@ class _$UserSignUpInfoSerializer
       result
         ..add('balance')
         ..add(serializers.serialize(object.balance,
-            specifiedType: const FullType(int)));
+            specifiedType: const FullType(double)));
     }
     if (object.photo != null) {
       result
@@ -109,7 +109,7 @@ class _$UserSignUpInfoSerializer
       switch (key) {
         case 'portfolio_value':
           result.portfolio_value = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(double)) as double;
           break;
         case 'first_access':
           result.first_access = serializers.deserialize(value,
@@ -133,7 +133,7 @@ class _$UserSignUpInfoSerializer
           break;
         case 'balance':
           result.balance = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(double)) as double;
           break;
         case 'photo':
           result.photo = serializers.deserialize(value,
@@ -164,7 +164,7 @@ class _$UserSignUpInfoSerializer
 
 class _$UserSignUpInfo extends UserSignUpInfo {
   @override
-  final int portfolio_value;
+  final double portfolio_value;
   @override
   final bool first_access;
   @override
@@ -176,7 +176,7 @@ class _$UserSignUpInfo extends UserSignUpInfo {
   @override
   final String email;
   @override
-  final int balance;
+  final double balance;
   @override
   final String photo;
   @override
@@ -283,9 +283,9 @@ class UserSignUpInfoBuilder
     implements Builder<UserSignUpInfo, UserSignUpInfoBuilder> {
   _$UserSignUpInfo _$v;
 
-  int _portfolio_value;
-  int get portfolio_value => _$this._portfolio_value;
-  set portfolio_value(int portfolio_value) =>
+  double _portfolio_value;
+  double get portfolio_value => _$this._portfolio_value;
+  set portfolio_value(double portfolio_value) =>
       _$this._portfolio_value = portfolio_value;
 
   bool _first_access;
@@ -309,9 +309,9 @@ class UserSignUpInfoBuilder
   String get email => _$this._email;
   set email(String email) => _$this._email = email;
 
-  int _balance;
-  int get balance => _$this._balance;
-  set balance(int balance) => _$this._balance = balance;
+  double _balance;
+  double get balance => _$this._balance;
+  set balance(double balance) => _$this._balance = balance;
 
   String _photo;
   String get photo => _$this._photo;
