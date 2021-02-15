@@ -15,7 +15,7 @@ SearchState _onLoad(SearchState prev, SearchLoadingAction action) =>
     SearchLoadingState();
 
 SearchState _onError(SearchState prev, SearchErrorAction action) =>
-    SearchError();
+    SearchErrorState(action.reason);
 
 SearchState _onReset(SearchState prev, SearchResetAction action) =>
     SearchInitialSate();

@@ -12,7 +12,11 @@ class SearchLoadingAction {}
 
 class SearchEmptyAction {}
 
-class SearchErrorAction {}
+class SearchErrorAction {
+  final String reason;
+
+  SearchErrorAction(this.reason);
+}
 
 class SearchResultCompletedAction {
   final EnterpriseInfoList result;
