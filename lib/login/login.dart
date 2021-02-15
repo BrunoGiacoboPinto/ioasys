@@ -21,9 +21,18 @@ class LoginView extends View<LoginViewModel, AppState> {
   @override
   void onInitializeCallBack(Store<AppState> store) {}
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget layout(BoxConstraints cts, BuildContext ctx, LoginViewModel vm) {
+    if (vm.state is LoginErrorState) {
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+          duration: Duration(milliseconds: 4500),
+          content: Text(vm.loginError())));
+    }
+
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.white,
       body: Stack(
         children: [
@@ -46,7 +55,7 @@ class LoginView extends View<LoginViewModel, AppState> {
           if (vm.state is LoginLoadingState)
             OverlayLoaderView(
               cts: cts,
-            )
+            ),
         ],
       ),
     );

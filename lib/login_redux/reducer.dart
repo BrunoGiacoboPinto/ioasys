@@ -17,7 +17,7 @@ LoginState _onLoading(LoginState prev, LoginLoadingAction action) =>
     LoginLoadingState();
 
 LoginState _onError(LoginState prev, LoginErrorAction action) =>
-    LoginErrorState();
+    LoginErrorState(action.reason);
 
 LoginState _onSuccess(LoginState prev, LogUserSuccessAction action) =>
     LoginSuccessState(action.authCredentials);

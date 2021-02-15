@@ -4,7 +4,11 @@ class LoginLoadingAction {}
 
 class LoginFailedAction {}
 
-class LoginErrorAction {}
+class LoginErrorAction {
+  final String reason;
+
+  LoginErrorAction(this.reason);
+}
 
 class LogUserInAction {
   final Map<String, String> credentials;

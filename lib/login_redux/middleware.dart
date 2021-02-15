@@ -5,6 +5,7 @@ import 'package:ioasys/app_redux/state.dart';
 import 'package:ioasys/auth/auth_client.dart';
 import 'package:ioasys/login_redux/action.dart';
 import 'package:ioasys/models/auth_credentials.dart';
+import 'package:ioasys/models/sign_up_error.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> loginMiddleware(
@@ -48,10 +49,14 @@ class LogUserInMiddleware extends MiddlewareClass<AppState> {
 
         store.dispatch(NavigateReplaceUntilAction('/dashboard'));
       } on DioError catch (err) {
-        logger.d('Something whent wrong =${err.response.data}');
+        final userSignError =
+            UserSignUpError.fromJson(err.response.data as Map<String, dynamic>);
+
+        store.dispatch(LoginErrorAction(userSignError.errors.first));
       }
     } else {
-      store.dispatch(LoginErrorAction());
+      store.dispatch(LoginErrorAction(
+          'Fail to connect to the internet. Check your connection.'));
     }
   }
 }

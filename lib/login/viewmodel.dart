@@ -12,4 +12,8 @@ class LoginViewModel extends ViewModel<AppState> {
   void logUserIn(Map<String, dynamic> credentials) {
     store.dispatch(LogUserInAction(credentials));
   }
+
+  String loginError() {
+    return (state as LoginErrorState).reason;
+  }
 }
