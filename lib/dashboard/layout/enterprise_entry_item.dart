@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:base/base.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ioasys/layout/colors.dart';
 import 'package:ioasys/models/enterprise_info.dart';
-import 'package:ioasys/utils/formatters.dart';
+
+final moneyFormatter = NumberFormat.simpleCurrency(locale: 'pt_BR');
 
 class EnterpriseEntryItemView extends StatelessWidget {
   final EnterpriseInfo company;

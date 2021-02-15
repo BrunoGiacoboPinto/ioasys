@@ -1,11 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:base/base.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ioasys/app_redux/state.dart';
 import 'package:ioasys/details/viewmodel.dart';
 import 'package:ioasys/layout/colors.dart';
-import 'package:ioasys/utils/formatters.dart';
 import 'package:redux/redux.dart';
+
+final moneyFormatter = NumberFormat.simpleCurrency(locale: 'pt_BR');
 
 class DetailsView extends View<DetailsViewModel, AppState> {
   final int companyId;

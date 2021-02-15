@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ioasys/models/enterprise_info.dart';
-
-import 'file:///C:/Users/BrunoGiacobo/Documents/Code/ioasys/lib/dashboard/layout/enterprise_entry_item.dart';
+import 'package:ioasys/login/layout/overlay_loader.dart';
 
 class BlankPageView extends StatelessWidget {
   @override
@@ -11,18 +9,8 @@ class BlankPageView extends StatelessWidget {
       body: SafeArea(
         child: LayoutBuilder(
           builder: (ctx, cts) {
-            return Column(
-              children: [
-                SizedBox(
-                  height: 50,
-                ),
-                EnterpriseEntryItemView(
-                  company: EnterpriseInfo((b) =>
-                      b..enterprise_name = 'Enterprise name swartzenegger'),
-                  details: (id) {},
-                  cts: cts,
-                ),
-              ],
+            return OverlayLoaderView(
+              cts: cts,
             );
           },
         ),

@@ -14,7 +14,7 @@ abstract class UserSignUpInfo
       _$userSignUpInfoSerializer;
 
   @nullable
-  int get portfolio_value;
+  double get portfolio_value;
 
   @nullable
   bool get first_access;
@@ -32,7 +32,7 @@ abstract class UserSignUpInfo
   String get email;
 
   @nullable
-  int get balance;
+  double get balance;
 
   @nullable
   String get photo;
