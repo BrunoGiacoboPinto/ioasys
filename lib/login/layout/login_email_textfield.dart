@@ -1,38 +1,60 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:ioasys/layout/colors.dart';
 
-class LoginTextField extends StatefulWidget {
-  final Function(String) onValidate;
+class LoginEmailTextField extends StatefulWidget {
   final Function(String) onSave;
   final BoxConstraints cts;
-  final String label;
 
-  final TextInputType inputType;
-
-  const LoginTextField(
-      {Key key,
-      this.cts,
-      this.label,
-      this.onValidate,
-      this.onSave,
-      this.inputType})
-      : super(key: key);
+  const LoginEmailTextField({
+    Key key,
+    this.onSave,
+    this.cts,
+  }) : super(key: key);
 
   @override
-  _LoginTextFieldState createState() => _LoginTextFieldState();
+  _LoginEmailTextFieldState createState() => _LoginEmailTextFieldState();
 }
 
-class _LoginTextFieldState extends State<LoginTextField> {
+class _LoginEmailTextFieldState extends State<LoginEmailTextField> {
+  bool _error = false;
+
+  String _validateEmailInput(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        _error = true;
+      });
+      return 'Preencha seu endereço de e-mail';
+    }
+
+    if (!EmailValidator.validate(value)) {
+      _error = true;
+      return 'Endereço de e-mail inválido.';
+    }
+
+    return null;
+  }
+
+  Widget _suffixIcon() {
+    return _error
+        ? Icon(
+            Icons.error,
+            size: 24,
+            color: darkRed,
+          )
+        : SizedBox();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: widget.inputType,
+      keyboardType: TextInputType.emailAddress,
       onSaved: widget.onSave,
       cursorColor: lightPink,
       cursorHeight: 24,
       decoration: InputDecoration(
-        suffixIcon: Icon(Icons.close_outlined),
-        labelText: widget.label,
+        suffixIcon: _suffixIcon(),
+        labelText: 'E-mail',
         labelStyle: TextStyle(color: darkGrey, fontSize: 16),
         filled: true,
         fillColor: lightGrey,
@@ -54,7 +76,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
           ),
         ),
       ),
-      validator: widget.onValidate,
+      validator: _validateEmailInput,
     );
   }
 }
