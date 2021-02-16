@@ -2,10 +2,14 @@
 
 # Desafio Pessoa Desenvolvedora Flutter
 
-## Implementação
+## Implementação telas principais
 
-![Overview1](https://github.com/BrunoGiacoboPinto/ioasys/blob/dev/screenshots/screens_1.png)
-![Overview2](https://github.com/BrunoGiacoboPinto/ioasys/blob/dev/screenshots/screens_2.png)
+![Overview1](screenshots/screens_1.png)
+
+
+## Implementação Busca
+
+![Overview2](screenshots/screens_2.png)
 
 ## Seja um testador
 
