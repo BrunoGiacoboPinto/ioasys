@@ -4,11 +4,16 @@ import 'package:ioasys/layout/colors.dart';
 
 class SearchCountView extends StatelessWidget {
   final String searchResultText;
+  final String searchFilterText;
   final BoxConstraints cts;
   final bool searchSucceed;
 
   const SearchCountView(
-      {Key key, this.cts, this.searchSucceed, this.searchResultText})
+      {Key key,
+      this.cts,
+      this.searchSucceed,
+      this.searchResultText,
+      this.searchFilterText})
       : super(key: key);
 
   @override
@@ -20,9 +25,32 @@ class SearchCountView extends StatelessWidget {
                 child: Container(
                   color: Colors.grey[300],
                   height: cts.h(.06),
-                  child: Text(
-                    searchResultText,
-                    style: TextStyle(fontSize: 16, color: darkGrey),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          searchResultText,
+                          style: TextStyle(fontSize: 16, color: darkGrey),
+                        ),
+                      ),
+                      if (searchFilterText != null)
+                        Expanded(
+                          flex: 1,
+                          child: ChoiceChip(
+                            selectedColor: darkGrey,
+                            backgroundColor: darkGrey,
+                            label: Text(
+                              searchFilterText,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            selected: true,
+                          ),
+                        )
+                    ],
                   ),
                 ),
               )

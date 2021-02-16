@@ -1,4 +1,5 @@
 import 'package:base/base.dart';
+import 'package:ioasys/filter_redux/state.dart';
 import 'package:ioasys/login_redux/state.dart';
 import 'package:ioasys/models/auth_credentials.dart';
 import 'package:ioasys/search_redux/state.dart';
@@ -6,16 +7,23 @@ import 'package:ioasys/search_redux/state.dart';
 class AppState extends BaseState {
   final LoginState loginState;
   final SearchState searchState;
+  final FilterState filterState;
 
   AuthCredentials get authCredentials {
     return (loginState as LoginSuccessState).authCredentials;
   }
 
-  AppState({this.searchState, this.loginState});
+  AppState({this.filterState, this.searchState, this.loginState});
 
   factory AppState.initial() => AppState(
-      searchState: SearchInitialSate(), loginState: LoginInitialState());
+      filterState: FilterEmptyState(),
+      searchState: SearchInitialSate(),
+      loginState: LoginInitialState());
 
-  factory AppState.copyWith({SearchState searchArg, LoginState loginArg}) =>
-      AppState(searchState: searchArg, loginState: loginArg);
+  factory AppState.copyWith(
+          {SearchState searchArg,
+          FilterState filterArg,
+          LoginState loginArg}) =>
+      AppState(
+          searchState: searchArg, filterState: filterArg, loginState: loginArg);
 }

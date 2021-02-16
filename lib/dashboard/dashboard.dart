@@ -50,6 +50,7 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
             cts: cts,
           ),
           SearchCountView(
+            searchFilterText: vm.searchFilterText,
             searchSucceed: vm.searchState is SearchPopulatedState,
             searchResultText: vm.resultCountHeadline(),
             cts: cts,
