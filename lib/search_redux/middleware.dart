@@ -45,11 +45,16 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
 
   @override
   void call(Store<AppState> store, dynamic action, next) async {
-    logger.d('[SearchMiddleware] searching for term ${action.name}');
-
     if (action.name.isEmpty) {
-      return store.dispatch(SearchResetAction());
+      store.dispatch(SearchResetAction());
+      return;
     }
+
+    final filter = store.state.filterState;
+    final credentials = store.state.authCredentials;
+
+    logger.d(
+        '[SearchMiddleware] searching for term ${action.name} with ${filter.runtimeType}');
 
     if (await checker.hasConnection) {
       // Cancel previous search attempt
@@ -60,18 +65,17 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
 
       // Wait until user stop typing
       _timer = Timer(Duration(milliseconds: 250), () {
-        final credentials = store.state.authCredentials;
-
         _currentOperation = CancelableOperation.fromFuture(repository
-            .fetch(action.name, credentials)
+            .fetch(action.name, credentials, filter)
             .then((data) => store.dispatch(data.enterprises.isEmpty
                 ? SearchEmptyAction()
                 : SearchResultCompletedAction(data)))
             .catchError((ex, stack) => _handleSearchErrors(ex, stack, store)));
       });
     } else {
-      if (repository.containsKey(action.name)) {
-        final data = await repository.load(action.name);
+      // Return already searched companies, even offline
+      if (repository.contains(action.name, filter)) {
+        final data = await repository.fetch(action.name, credentials, filter);
         store.dispatch(SearchResultCompletedAction(data));
       } else {
         store.dispatch(SearchErrorAction(
