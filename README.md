@@ -2,6 +2,26 @@
 
 # Desafio Pessoa Desenvolvedora Flutter
 
+## Implementação telas principais
+
+![Overview1](screenshots/screens_1.png)
+
+
+## Implementação Busca
+
+![Overview2](screenshots/screens_2.png)
+
+## Seja um testador
+
+Todos os releases dessa aplicação são assinados no processo de CI/CD e enviados via firebase app distribution para os testadores.
+Se você quiser ser um testador, cadastre-se no link: https://appdistribution.firebase.dev/i/5dc844e5628089d7
+
+## Timeline de releases
+
+Todos os releases e versões são gerados automaticamente. Para observar o andamento e diferenciação entre esses releases, basta acessar o link:
+https://github.com/BrunoGiacoboPinto/ioasys/releases
+
+
 ## 🏗  O que fazer?
 Você deve fazer um fork deste repositório, criar o código e ao finalizar, enviar o link do seu repositório para a nossa equipe. Lembre-se, NÃO é necessário criar um Pull Request para isso, nós iremos avaliar e retornar por e-mail o resultado do seu teste.
 
