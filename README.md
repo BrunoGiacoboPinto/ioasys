@@ -14,7 +14,7 @@
 ## Seja um testador
 
 Todos os releases dessa aplicação são assinados no processo de CI/CD e enviados via firebase app distribution para os testadores.
-Se você quiser ser um testador, cadastre-se no link: https://appdistribution.firebase.dev/i/58dfa539dbf29ccb
+Se você quiser ser um testador, cadastre-se no link: https://appdistribution.firebase.dev/i/5dc844e5628089d7
 
 ## Timeline de releases
 
