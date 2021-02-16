@@ -32,7 +32,13 @@ class NetworkDataSource implements DataSource<EnterpriseInfoList> {
   AuthCredentials credentials;
   final EnterpriseApiClient apiClient;
 
+  int filterId = 0;
+
   NetworkDataSource(this.apiClient, {this.credentials});
+
+  void setFilter(int id) {
+    this.filterId = id;
+  }
 
   void setCredentials(AuthCredentials other) {
     this.credentials = AuthCredentials((b) => b
@@ -52,6 +58,17 @@ class NetworkDataSource implements DataSource<EnterpriseInfoList> {
     final token = credentials.accessToken;
     final client = credentials.client;
     final uid = credentials.uid;
+
+    if (filterId != 0) {
+      return apiClient
+          .getEnterprisesWithFilter(
+              type: filterId,
+              name: key,
+              uid: uid,
+              client: client,
+              accessToken: token)
+          .then((response) => response.data);
+    }
 
     return apiClient
         .getEnterprisesWithName(

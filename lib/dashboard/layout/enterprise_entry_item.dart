@@ -85,10 +85,12 @@ class EnterpriseEntryItemView extends StatelessWidget {
                                         color: Colors.red[800],
                                       ),
                                     ),
-                                    Text(
+                                    AutoSizeText(
                                       '${company.city}/${company.country}',
-                                      style: TextStyle(
-                                          color: darkGrey, fontSize: 18),
+                                      maxFontSize: 16,
+                                      minFontSize: 12,
+                                      stepGranularity: 1,
+                                      style: TextStyle(color: darkGrey),
                                     ),
                                   ],
                                 ),
@@ -112,6 +114,8 @@ class EnterpriseEntryItemView extends StatelessWidget {
                                       moneyFormatter
                                           .format(company.share_price),
                                       minFontSize: 13,
+                                      maxFontSize: 16,
+                                      stepGranularity: 1,
                                     ),
                                   ),
                                 ],
