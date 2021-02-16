@@ -16,7 +16,7 @@
 Todos os releases dessa aplicação são assinados no processo de CI/CD e enviados via firebase app distribution para os testadores.
 Se você quiser ser um testador, cadastre-se no link: https://appdistribution.firebase.dev/i/58dfa539dbf29ccb
 
-## Timelie de releases
+## Timeline de releases
 
 Todos os releases e versões são gerados automaticamente. Para observar o andamento e diferenciação entre esses releases, basta acessar o link:
 https://github.com/BrunoGiacoboPinto/ioasys/releases
