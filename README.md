@@ -4,8 +4,8 @@
 
 ## Implementação
 
-![](./screenshots/screen_1.png)
-![](./screenshots/screen_2.png)
+![Overview](https://github.com/BrunoGiacoboPinto/ioasys/blob/dev/screenshots/screens_1.png)
+![Overview](https://github.com/BrunoGiacoboPinto/ioasys/blob/dev/screenshots/screens_2.png)
 
 ## Seja um testador
 
