@@ -16,13 +16,14 @@ import 'action.dart';
 class SearchMiddleware extends MiddlewareClass<AppState> {
   final DataConnectionChecker checker;
   final EnterprisesRepository repository;
+  final int duration;
 
-  SearchMiddleware(this.repository, this.checker);
+  SearchMiddleware(this.repository, this.checker, {this.duration = 250});
 
   Timer _timer;
   CancelableOperation<HttpResponse<EnterpriseInfoList>> _currentOperation;
 
-  Future<void> _handleSearchErrors(
+  void _handleSearchErrors(
       Exception ex, StackTrace stack, Store<AppState> store) {
     if (ex is DioError) {
       // User session credentials expired, requesting new one since we dont keep
@@ -64,14 +65,17 @@ class SearchMiddleware extends MiddlewareClass<AppState> {
       store.dispatch(SearchLoadingAction());
 
       // Wait until user stop typing
-      _timer = Timer(Duration(milliseconds: 250), () {
-        _currentOperation = CancelableOperation.fromFuture(repository
-            .fetch(action.name, credentials, filter)
-            .then((data) => store.dispatch(data.enterprises.isEmpty
-                ? SearchEmptyAction()
-                : SearchResultCompletedAction(data)))
-            .catchError((ex, stack) => _handleSearchErrors(ex, stack, store)));
-      });
+      try {
+        _timer = Timer(Duration(milliseconds: duration), () {
+          _currentOperation = CancelableOperation.fromFuture(repository
+              .fetch(action.name, credentials, filter)
+              .then((data) => store.dispatch(data.enterprises.isEmpty
+                  ? SearchEmptyAction()
+                  : SearchResultCompletedAction(data))));
+        });
+      } catch (ex, stack) {
+        _handleSearchErrors(ex, stack, store);
+      }
     } else {
       // Return already searched companies, even offline
       if (repository.contains(action.name, filter)) {
