@@ -16,6 +16,16 @@
 Todos os releases dessa aplicação são assinados no processo de CI/CD e enviados via firebase app distribution para os testadores.
 Se você quiser ser um testador, cadastre-se no link: https://appdistribution.firebase.dev/i/5dc844e5628089d7
 
+## CI/CD
+
+Os testes unitários e releases são controlados em regime de CI/CD. Mais detalhes podem ser acessados em:
+https://github.com/BrunoGiacoboPinto/ioasys/actions
+
+## Gerenciamento do projeto
+
+O projeto foi gerenciado usando os projetos do Github, por meio de issues e pull requests. mais detalhes
+podem ser acessados em: https://github.com/BrunoGiacoboPinto/ioasys/projects/1
+
 ## Timeline de releases
 
 Todos os releases e versões são gerados automaticamente. Para observar o andamento e diferenciação entre esses releases, basta acessar o link:
