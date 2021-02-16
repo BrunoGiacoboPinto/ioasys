@@ -11,7 +11,7 @@ import 'package:ioasys/search_redux/state.dart';
 import 'package:redux/redux.dart';
 
 import 'layout/search_appbar.dart';
-import 'layout/search_count.dart';
+import 'layout/search_info.dart';
 
 class DashBoardView extends View<DashBoardViewModel, AppState> {
   @override
@@ -49,7 +49,8 @@ class DashBoardView extends View<DashBoardViewModel, AppState> {
             onSearch: vm.onSearch,
             cts: cts,
           ),
-          SearchCountView(
+          SearchInfoView(
+            closeFilter: vm.clearFilter,
             searchFilterText: vm.searchFilterText,
             searchSucceed: vm.searchState is SearchPopulatedState,
             searchResultText: vm.resultCountHeadline(),

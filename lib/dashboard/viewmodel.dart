@@ -1,5 +1,6 @@
 import 'package:base/base.dart';
 import 'package:ioasys/app_redux/state.dart';
+import 'package:ioasys/filter_redux/action.dart';
 import 'package:ioasys/filter_redux/state.dart';
 import 'package:ioasys/search_redux/action.dart';
 import 'package:ioasys/search_redux/state.dart';
@@ -18,6 +19,10 @@ class DashBoardViewModel extends ViewModel<AppState> {
     }
 
     return null;
+  }
+
+  void clearFilter() {
+    store.dispatch(EmptyFilterAction());
   }
 
   void onSearch(String name) {
