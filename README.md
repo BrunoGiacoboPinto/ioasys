@@ -4,8 +4,8 @@
 
 ## Implementação
 
-![N|Solid](screenshots/screen_1.png)
-![N|Solid](screenshots/screen_2.png)
+![](./screenshots/screen_1.png)
+![](./screenshots/screen_2.png)
 
 ## Seja um testador
 
